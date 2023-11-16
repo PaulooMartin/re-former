@@ -1,4 +1,4 @@
-<h1>My new form</h1>
+<h1>Editing your data</h1>
 
 <%# <form action="/users" method="post" accept-charset="UTF-8">
     <input type="hidden" name="authenticity_token" value="form_authenticity_token">
@@ -28,17 +28,29 @@
 <%# end %>
 
 <%= form_with model: @user do |form| %>
-    <%= form.label :email %> 
+    <%= form.label :email, 'Edit your email' %> 
     <%= form.email_field :email, placeholder: 'example@example.com' %>
     
-    <%= form.label :username, 'Add your username here' %>
+    <%= form.label :username, 'Edit your username here' %>
     <%= form.text_field :username, placeholder: 'My username'  %> 
 
     <%= form.label :password %> 
     <%= form.password_field :password %>
 
     <%= form.submit %>
-
 <% end %>
+
+<% if @user.errors.any? %>
+    <div class="model_errors">
+        <h2><%= pluralize(@user.errors.count, 'Error') %> prohibited this user from being updated</h2>
+
+        <ul>
+            <% @user.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
 
   
